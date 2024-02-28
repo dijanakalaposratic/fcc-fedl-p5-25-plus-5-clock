@@ -184,33 +184,35 @@ class App extends React.Component<unknown, AppState> {
 
 	render() {
 		return (
-			<div className='container'>
+			<>
 				<div className='main-title'>25 + 5 Clock</div>
-				<LengthControl addID='break-increment' length={this.state.brkLength} lengthID='break-length' minID='break-decrement' onClick={this.setBrkLength} title='Break Length' titleID='break-label' />
-				<LengthControl addID='session-increment' length={this.state.seshLength} lengthID='session-length' minID='session-decrement' onClick={this.setSeshLength} title='Session Length' titleID='session-label' />
-				<div className='timer' style={this.state.alarmColor}>
-					<div className='timer-wrapper'>
-						<div id='timer-label'>{this.state.timerType}</div>
-						<div id='time-left'>{this.clockify()}</div>
+				<div className='container'>
+					<LengthControl addID='break-increment' length={this.state.brkLength} lengthID='break-length' minID='break-decrement' onClick={this.setBrkLength} title='Break Length' titleID='break-label' />
+					<LengthControl addID='session-increment' length={this.state.seshLength} lengthID='session-length' minID='session-decrement' onClick={this.setSeshLength} title='Session Length' titleID='session-label' />
+					<div className='timer' style={this.state.alarmColor}>
+						<div className='timer-wrapper'>
+							<div id='timer-label'>{this.state.timerType}</div>
+							<div id='time-left'>{this.clockify()}</div>
+						</div>
 					</div>
+					<div className='timer-control'>
+						<button id='start_stop' onClick={this.timerControl}>
+							{this.state.timerState === 'stopped' ? <span>Start</span> : <span>Stop</span>}
+						</button>
+						<button id='reset' onClick={this.reset}>
+							Reset
+						</button>
+					</div>
+					<audio
+						id='beep'
+						preload='auto'
+						ref={(e) => {
+							this.audioBeep = e;
+						}}
+						src='https://cdn.freecodecamp.org/testable-projects-fcc/audio/BeepSound.wav'
+					/>
 				</div>
-				<div className='timer-control'>
-					<button id='start_stop' onClick={this.timerControl}>
-						{this.state.timerState === 'stopped' ? <span>Start</span> : <span>Stop</span>}
-					</button>
-					<button id='reset' onClick={this.reset}>
-						Reset
-					</button>
-				</div>
-				<audio
-					id='beep'
-					preload='auto'
-					ref={(e) => {
-						this.audioBeep = e;
-					}}
-					src='https://cdn.freecodecamp.org/testable-projects-fcc/audio/BeepSound.wav'
-				/>
-			</div>
+			</>
 		);
 	}
 }
